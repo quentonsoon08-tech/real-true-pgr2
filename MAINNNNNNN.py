@@ -99,7 +99,7 @@ def find_item(name):
 # enters a valid whole number (int), 0 or greater
 # Demonstrates: while True, if, continue, break, int, str
 # -------------------------------------------------------
-def get_valid_quantity(prompt):
+def get_valid_quantity(prompt):  # That prompt is the string is usually the message shown to the user, like "Enter the price:"
     # prompt is a str - the message shown to the user
     valid    = False    # bool flag - becomes True when input is accepted
     quantity = 0        # int - will hold the final valid quantity
@@ -137,7 +137,7 @@ def get_valid_quantity(prompt):
 # enters a valid decimal number (float), 0.00 or greater
 # Demonstrates: while True, if, continue, break, float, str
 # -------------------------------------------------------
-def get_valid_price(prompt):
+def get_valid_price(prompt): 
     # prompt is a str - the message shown to the user
     valid = False   # bool flag
     price = 0.0     # float - will hold the final valid price
@@ -235,10 +235,24 @@ def option1_add_item():
         return   # stop and go back to menu
  
     # Get valid quantity (int) using helper function
-    quantity = get_valid_quantity("Enter quantity: ")       # int
+    # Loop until user enters a quantity greater than 0
+    # A quantity of 0 is not allowed when adding a new item
+    while True:
+        quantity = get_valid_quantity("Enter quantity: ")   # int - must be > 0 for new items
+        if quantity == 0:   # int comparison - reject zero stock when adding new item
+            print("  [!] Quantity must be greater than 0 when adding a new item.")
+            continue   # loop back and ask again
+        break   # valid int greater than 0 - exit loop
  
     # Get valid price (float) using helper function
-    price = get_valid_price("Enter price ($): ")           # float
+    # Loop until user enters a price greater than $0.00
+    # A price of 0.00 is not allowed when adding a new item
+    while True:
+        price = get_valid_price("Enter price ($): ")   # float - must be > 0.00 for new items
+        if price == 0.0:   # float comparison - reject zero price when adding new item
+            print("  [!] Price must be greater than $0.00 when adding a new item.")
+            continue   # loop back and ask again
+        break   # valid float greater than 0.00 - exit loop
  
     # Create a StationeryItem object and calculate total price (float)
     item_obj   = StationeryItem(name, quantity, price)
